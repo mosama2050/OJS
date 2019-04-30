@@ -52,9 +52,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
         String cat_id = request.getParameter("cat_id");
         ArrayList<post> all = null;
         if (cat_id == null) {
-            all = new PostDOA().VIEWPOST();
+            all = new PostDOA().VIEWPOSTREJ();
         } else {
-            all = new PostDOA().VIEWPOST_cat(cat_id);
+            all = new PostDOA().VIEWPOST_cat_rej(cat_id);
         }
         request.setAttribute("posts", all);
     %>
@@ -189,7 +189,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                             <li><a href="ReviewSubmession.jsp">Appending Posts</a></li>
+                         <li><a href="ReviewSubmession.jsp">Appending Posts</a></li>
                                 <li><a href="userstate.jsp">Manage Users</a></li>
                                 <li><a href="rejectedpost.jsp">rejected Posts</a></li>
                             </ul>
@@ -264,10 +264,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             </div>
                                         </div>
                                     </div>
+                                             
+                                            
+                                             <div class="box-footer">
+                                              <a href="updateState?id=${post.getId()}&state=1" >  <button   class="btn btn-success pull-right">    accepted </button>  </a>
+                                                          </div>
                                 </form>
                                 <!-- /.box-materail -->
 
-                               <span class="pull-right text-muted">${post.getCateg()}</span>
+                                 
+                                <span class="pull-right text-muted">${post.getCateg()}</span>
                             </div>
                             <!-- /.box-body -->
 

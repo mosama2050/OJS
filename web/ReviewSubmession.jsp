@@ -189,9 +189,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="#">Review submession</a></li>
-                                <li><a href="#">Manage Users</a></li>
-                                <li><a href="#">Appending Posts</a></li>
+                         <li><a href="ReviewSubmession.jsp">Appending Posts</a></li>
+                                <li><a href="userstate.jsp">Manage Users</a></li>
+                                <li><a href="rejectedpost.jsp">rejected Posts</a></li>
                             </ul>
                         </li>
                         <li><a href="about.jsp"><i class="fa fa-send"></i> <span>about us</span></a></li>
@@ -267,8 +267,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                              
                                             
                                              <div class="box-footer">
-                                                <button   class="btn btn-success pull-left">   <a href="updateState?id=${post.getId()}&state=1" > accepted</a> </button>  
-                                                   <button  class="btn btn-danger pull-right"><a href="updateState?id=${post.getId()}&state=0" >   Rejected  </a> </button>
+                                              <a href="updateState?id=${post.getId()}&state=1" >  <button   class="btn btn-success pull-right">    accepted </button>  </a>
+                                               <a href="updateState?id=${post.getId()}&state=0" >     <button  class="btn btn-danger pull-right">  Rejected  </button> </a> 
                                             </div>
                                 </form>
                                 <!-- /.box-materail -->

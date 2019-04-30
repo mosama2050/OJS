@@ -176,9 +176,9 @@ desired effect
               </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#">Review submession</a></li>
-            <li><a href="#">Manage Users</a></li>
-            <li><a href="#">Appending Posts</a></li>
+             <li><a href="ReviewSubmession.jsp">Appending Posts</a></li>
+                                <li><a href="userstate.jsp">Manage Users</a></li>
+                                <li><a href="rejectedpost.jsp">rejected Posts</a></li>
           </ul>
         </li>
         <li class="active"><a href="about.jsp"><i class="fa fa-send"></i> <span>about us</span></a></li>
