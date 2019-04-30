@@ -6,6 +6,7 @@
 package Controller;
 
 import DB.PostDOA;
+import DB.UserDOA;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -16,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.User;
 import model.post;
 
 /**
@@ -37,16 +39,127 @@ public class DBFileDownloadServlet extends HttpServlet {
     InputStream inputStream;
     post p = new post();
     PostDOA po = new PostDOA();
+    User u = new User();
+    UserDOA uo = new UserDOA();
     private static final int BUFFER_SIZE = 4096;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-      
-            String i=  request.getParameter("id");
-            String type = request.getParameter("type");
-            if(type.equals("1")){
-            inputStream = po.VIEWPOST(Integer.valueOf(i)).getPdf();
+
+        String i = request.getParameter("id");
+        String type = request.getParameter("type");
+        if (i != null) {
+            if (type.equals("1")) {
+                inputStream = po.VIEWPOST(Integer.valueOf(i)).getPdf();
+                int fileLength = inputStream.available();
+
+                System.out.println("fileLength = " + fileLength);
+
+                ServletContext context = getServletContext();
+
+                // sets MIME type for the file download
+                String mimeType = context.getMimeType("file_name.pdf");
+                if (mimeType == null) {
+                    mimeType = "application/octet-stream";
+                }
+
+                // set content properties and header attributes for the response
+                response.setContentType(mimeType);
+                response.setContentLength(fileLength);
+                String headerKey = "Content-Disposition";
+                String headerValue = String.format("attachment; filename=\"%s\"", "file_name.pdf");
+                response.setHeader(headerKey, headerValue);
+
+                // writes the file to the client
+                OutputStream outStream = response.getOutputStream();
+
+                byte[] buffer = new byte[BUFFER_SIZE];
+                int bytesRead = -1;
+
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outStream.write(buffer, 0, bytesRead);
+                }
+
+                inputStream.close();
+                outStream.close();
+            } else if (type.equals("2")) {
+                inputStream = po.VIEWPOST(Integer.valueOf(i)).getPdf();
+                int fileLength = inputStream.available();
+
+                System.out.println("fileLength = " + fileLength);
+
+                ServletContext context = getServletContext();
+
+                // sets MIME type for the file download
+                String mimeType = context.getMimeType("file_name.txt");
+                if (mimeType == null) {
+                    mimeType = "application/octet-stream";
+                }
+
+                // set content properties and header attributes for the response
+                response.setContentType(mimeType);
+                response.setContentLength(fileLength);
+                String headerKey = "Content-Disposition";
+                String headerValue = String.format("attachment; filename=\"%s\"", "file_name.txt");
+                response.setHeader(headerKey, headerValue);
+
+                // writes the file to the client
+                OutputStream outStream = response.getOutputStream();
+
+                byte[] buffer = new byte[BUFFER_SIZE];
+                int bytesRead = -1;
+
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outStream.write(buffer, 0, bytesRead);
+                }
+
+                inputStream.close();
+                outStream.close();
+            } else if (type.equals("3")) {
+                inputStream = po.VIEWPOST(Integer.valueOf(i)).getPdf();
+                int fileLength = inputStream.available();
+
+                System.out.println("fileLength = " + fileLength);
+
+                ServletContext context = getServletContext();
+
+                // sets MIME type for the file download
+                String mimeType = context.getMimeType("file_name.html");
+                if (mimeType == null) {
+                    mimeType = "application/octet-stream";
+                }
+
+                // set content properties and header attributes for the response
+                response.setContentType(mimeType);
+                response.setContentLength(fileLength);
+                String headerKey = "Content-Disposition";
+                String headerValue = String.format("attachment; filename=\"%s\"", "file_name.html");
+                response.setHeader(headerKey, headerValue);
+
+                // writes the file to the client
+                OutputStream outStream = response.getOutputStream();
+
+                byte[] buffer = new byte[BUFFER_SIZE];
+                int bytesRead = -1;
+
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outStream.write(buffer, 0, bytesRead);
+                }
+
+                inputStream.close();
+                outStream.close();
+            }
+        }
+        //////////////////////////////////////////////////
+
+        String uname = request.getParameter("uname");
+        String id = request.getParameter("bid");
+
+        if (uname != null) {
+            u = uo.searchUser(uname, id);
+
+            inputStream = u.getCv();
             int fileLength = inputStream.available();
 
             System.out.println("fileLength = " + fileLength);
@@ -78,75 +191,7 @@ public class DBFileDownloadServlet extends HttpServlet {
 
             inputStream.close();
             outStream.close();
-            }
-            
-            else if(type.equals("2")){
-         inputStream = po.VIEWPOST(Integer.valueOf(i)).getPdf();
-            int fileLength = inputStream.available();
-
-            System.out.println("fileLength = " + fileLength);
-
-            ServletContext context = getServletContext();
-
-            // sets MIME type for the file download
-            String mimeType = context.getMimeType("file_name.txt");
-            if (mimeType == null) {
-                mimeType = "application/octet-stream";
-            }
-
-            // set content properties and header attributes for the response
-            response.setContentType(mimeType);
-            response.setContentLength(fileLength);
-            String headerKey = "Content-Disposition";
-            String headerValue = String.format("attachment; filename=\"%s\"", "file_name.txt");
-            response.setHeader(headerKey, headerValue);
-
-            // writes the file to the client
-            OutputStream outStream = response.getOutputStream();
-
-            byte[] buffer = new byte[BUFFER_SIZE];
-            int bytesRead = -1;
-
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outStream.write(buffer, 0, bytesRead);
-            }
-
-            inputStream.close();
-            outStream.close();
-            }else if(type.equals("3")){
-         inputStream = po.VIEWPOST(Integer.valueOf(i)).getPdf();
-            int fileLength = inputStream.available();
-
-            System.out.println("fileLength = " + fileLength);
-
-            ServletContext context = getServletContext();
-
-            // sets MIME type for the file download
-            String mimeType = context.getMimeType("file_name.html");
-            if (mimeType == null) {
-                mimeType = "application/octet-stream";
-            }
-
-            // set content properties and header attributes for the response
-            response.setContentType(mimeType);
-            response.setContentLength(fileLength);
-            String headerKey = "Content-Disposition";
-            String headerValue = String.format("attachment; filename=\"%s\"", "file_name.html");
-            response.setHeader(headerKey, headerValue);
-
-            // writes the file to the client
-            OutputStream outStream = response.getOutputStream();
-
-            byte[] buffer = new byte[BUFFER_SIZE];
-            int bytesRead = -1;
-
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outStream.write(buffer, 0, bytesRead);
-            }
-
-            inputStream.close();
-            outStream.close();
-            }
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

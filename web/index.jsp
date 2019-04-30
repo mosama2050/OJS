@@ -141,8 +141,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="pull-left image">
                             <img src="data:image/jpg;base64,${user.base64Image}" class="img-circle" alt="User Image">
                         </div>
-                        <div class="pull-left info">
-                            <p>${user.name} </p>
+                      <div class="pull-left info">
+                            <p>${user.name}  </p>
                             <!-- Status -->
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>

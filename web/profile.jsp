@@ -63,6 +63,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         User u=(User)request.getSession().getAttribute("user");
         ArrayList<post> all = new PostDOA().VIEWPOST_uname(u.getUname());
         request.setAttribute("posts", all);
+        
     %>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
@@ -174,10 +175,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="#">Scientific</a></li>
-                                <li><a href="#">Computer Science</a></li>
-                                <li><a href="#">Sport</a></li>
-                                <li><a href="#">Art</a></li>
+
+                                <sql:setDataSource var="db" driver="com.mysql.jdbc.Driver"  url="jdbc:mysql://localhost/journal"  user="root"  password=""/>  
+                                <sql:query dataSource="${db}" var="rs">  
+                                    SELECT * FROM catog;  
+                                </sql:query> 
+                                <c:forEach items="${rs.rows}" var="cat">
+                                    <li><a href="index.jsp?cat_id=${cat.cat_id}">${cat.cat_name}</a></li>
+                                </c:forEach>
                             </ul>
                         </li>
                         <li class="treeview">
@@ -236,7 +241,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <b>Followers</b> <a class="pull-right">1,322</a>
                                         </li>
                                         <li class="list-group-item">
-                                            <b>Submession</b> <a class="pull-right">287</a>
+                                            <b>Submession</b> <a class="pull-right">${posts.size()}</a>
                                         </li>
                                     </ul>
                                 </div>

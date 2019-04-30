@@ -63,6 +63,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         User u=(User)request.getSession().getAttribute("user");
         ArrayList<post> all = new PostDOA().VIEWPOST_uname(u.getUname());
         request.setAttribute("posts", all);
+        
     %>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
@@ -174,10 +175,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="#">Scientific</a></li>
-                                <li><a href="#">Computer Science</a></li>
-                                <li><a href="#">Sport</a></li>
-                                <li><a href="#">Art</a></li>
+
+                                <sql:setDataSource var="db" driver="com.mysql.jdbc.Driver"  url="jdbc:mysql://localhost/journal"  user="root"  password=""/>  
+                                <sql:query dataSource="${db}" var="rs">  
+                                    SELECT * FROM catog;  
+                                </sql:query> 
+                                <c:forEach items="${rs.rows}" var="cat">
+                                    <li><a href="index.jsp?cat_id=${cat.cat_id}">${cat.cat_name}</a></li>
+                                </c:forEach>
                             </ul>
                         </li>
                         <li class="treeview">
@@ -187,9 +192,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="ReviewSubmession.jsp">Review submession</a></li>
-                                <li><a href="#">Manage Users</a></li>
-                                <li><a href="#">Appending Posts</a></li>
+                                <li><a href="ReviewSubmession.jsp">Appending Posts</a></li>
+                                <li><a href="userstate.jsp">Manage Users</a></li>
+                                <li><a href="rejectedpost.jsp">rejected Posts</a></li>
                             </ul>
                         </li>
                         <li><a href="about.jsp"><i class="fa fa-send"></i> <span>about us</span></a></li>
@@ -236,7 +241,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <b>Followers</b> <a class="pull-right">1,322</a>
                                         </li>
                                         <li class="list-group-item">
-                                            <b>Submession</b> <a class="pull-right">287</a>
+                                            <b>Submession</b> <a class="pull-right">${posts.size()}</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -313,22 +318,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                         <div class="form-group">
                                                             <div class="row">
                                                                 <div class="col-xs-3">
-                                                                    <button class="btn pull-right btn-primary"><a href="DBFileDownloadServlet?id=${post.getId()}&type=${1}" >PDF</a></button>
+                                                                  <a href="DBFileDownloadServlet?id=${post.getId()}&type=${1}" >  <button class="btn pull-right btn-primary">PDF</button></a>
                                                                 </div>
                                                                 <div class="col-xs-3">
-                                                                    <button class="btn pull-right btn-primary"><a href="DBFileDownloadServlet?id=${post.getId()}&type=${2}" >DOCS</a></button>
+                                                                    <a href="DBFileDownloadServlet?id=${post.getId()}&type=${2}" > <button class="btn pull-right btn-primary">DOCS</button></a>
                                                                     <!--<button type="submit" class="btn btn-danger pull-right btn-primary btn-block btn-sm">Send</button>-->
                                                                 </div>
                                                                 <div class="col-xs-3">
-                                                                    <button class="btn pull-right btn-primary"><a href="DBFileDownloadServlet?id=${post.getId()}&type=${3}" >HTML</a></button>
+                                                                <a href="DBFileDownloadServlet?id=${post.getId()}&type=${3}" >    <button class="btn pull-right btn-primary">HTML</button></a>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </form>
                                                     <!-- /.box-materail -->
 
-                                                    <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
-                                                    <button type="button" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
+                                                     
                                                     <span class="pull-right text-muted">${post.getCateg()}</span>
                                                 </div>
                                                 <!-- /.box-body -->

@@ -24,6 +24,7 @@ public class post {
     int id ;
 
     public int getId() {
+        
         return id;
     }
 
@@ -75,7 +76,21 @@ public class post {
 
 
     public String getCateg() {
-        return categ;
+        if (null == categ )
+            return categ;
+        else switch (categ) {
+            case "1":
+                return categ="cs";
+            case "2":
+                return categ="is";
+            case "3":
+                return categ="it";
+            case "4":
+                return categ="or";
+            default:
+                return categ;
+        }
+        
     }
     public void setCateg(String categ) {
         this.categ = categ;

@@ -15,6 +15,36 @@ public class UserDOA {
     String login_query = "SELECT  pass FROM users WHERE uname = ? and  	pass = ?";
     String search_query = "SELECT  * FROM users WHERE uname = ? ";
     String search_query1 = "SELECT   users.uname  ,   pass  ,   name  ,   email  ,   DOB  ,   image  ,   gender  ,   phone  ,   cat_id  ,   cv   ,  perm_id  ,     states   FROM users  JOIN userpermetion ON users.uname =userpermetion.uname  WHERE users.uname = ? and userpermetion.states = ? ";
+    String search_query2 = "SELECT   users.uname  ,   pass  ,   name  ,   email  ,   DOB  ,   image  ,   gender  ,   phone  ,   cat_id  ,   cv   ,  perm_id  ,     states   FROM users  JOIN userpermetion ON users.uname =userpermetion.uname  WHERE users.uname = ? and perm_id=?";
+
+    public User searchUser2(String uname, String prem_id) {
+        User ret = new User();
+        PreparedStatement preparedStmt;
+        try {
+            preparedStmt = con.prepareStatement(search_query2);
+            preparedStmt.setString(1, uname);
+            preparedStmt.setString(2, prem_id);
+            //users.uname  ,   pass  ,   name  ,   email  ,   DOB  ,   image  ,   gender  ,   phone  ,   cat_id  ,   cv   ,  perm_id  ,     states
+            ResultSet rs = preparedStmt.executeQuery();
+            if (rs.next()) {
+                ret.setUname(rs.getString(1));
+                ret.setPass(rs.getString(2));
+                ret.setName(rs.getString(3));
+                ret.setEmail(rs.getString(4));
+                ret.setDOB(rs.getDate(5));
+                ret.setImage(rs.getBlob(6).getBinaryStream());
+                ret.setGender(rs.getString(7));
+                ret.setPhone(rs.getString(8));
+                ret.setCid(rs.getString(9));
+                ret.setCv(rs.getBlob(10).getBinaryStream());
+                ret.setType(prem_id);
+                System.out.println(ret);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDOA.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ret;
+    }
 
     public boolean insert(User u, int author, int reviewer) {
         PreparedStatement ps, psusp;
@@ -87,7 +117,7 @@ public class UserDOA {
         return false;
     }
 
-    public User searchUser(String uname ,String stat) {
+    public User searchUser(String uname, String stat) {
         User ret = new User();
         PreparedStatement preparedStmt;
         try {
@@ -96,7 +126,7 @@ public class UserDOA {
             preparedStmt.setString(2, stat);
             ResultSet rs = preparedStmt.executeQuery();
             if (rs.next()) {
-                
+
                 ret.setUname(rs.getString(1));
                 ret.setPass(rs.getString(2));
                 ret.setName(rs.getString(3));

@@ -206,11 +206,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Home Page
-                        <small>All submissions</small>
+                       reviewed Page
+                        <small>All report</small>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Home page</a></li>
+                        <li><a href="#"><i class="fa fa-dashboard"></i> reviewed page</a></li>
                         <li class="active">all</li>
                     </ol>
                 </section>
