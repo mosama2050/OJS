@@ -304,7 +304,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                             <i class="fa fa-circle-o"></i></button>
                                                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                                                         </button>
-                                                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                                        <a href="removepost.jsp?title=${post.getTitle()}"    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> </a>
                                                     </div>
                                                     <!-- /.box-tools -->
                                                 </div>

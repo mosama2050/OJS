@@ -245,6 +245,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <th>cv</th>
                                             <th>Type</th>
                                             <th>State</th>
+                                            <th>permission</th>
                                         </tr>
                                         <sql:setDataSource var="db" driver="com.mysql.jdbc.Driver"  url="jdbc:mysql://localhost/journal"  user="root"  password=""/>  
                                         <sql:query dataSource="${db}" var="rs">  
@@ -259,33 +260,38 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 <td>${u.DOB}</td>
                                                 <td>${u.gender}</td>
                                                 <td>${u.phone}</td>
-                                                <td>${u.cat_id}</td>
                                                 <td>
-                                                    <div class="col-xs-3">
-                                                        <a href="DBFileDownloadServlet?uname=${u.uname}&bid=${u.perm_id}" ><button  class="btn pull-right btn-primary">PDF</button></a>
-                                                    </div>
+                                                    <c:if test = "${u.cat_id ==  1}"> <span class="label label-primary">CS</span> </c:if>
+                                                    <c:if test = "${u.cat_id ==  2}"> <span class="label label-primary">IS</span> </c:if>
+                                                    <c:if test = "${u.cat_id ==  3}"> <span class="label label-primary">it</span> </c:if>
+                                                    <c:if test = "${u.cat_id ==  4}"> <span class="label label-primary">or</span> </c:if>
+                                                    </td>
+                                                    <td>
+
+                                                        <a href="DBFileDownloadServlet?uname=${u.uname}&bid=${u.perm_id}" ><button  class="btn  btn-primary">PDF</button></a>
+
                                                 </td>
-                                                <td>
+                                                <td> 
+                                                    <c:if test = "${u.perm_id ==  1}"> <span class="label label-default">Reader</span> </c:if>
+                                                    <c:if test = "${u.perm_id ==  2}"> <span class="label label-danger">Auther</span> </c:if>
+                                                    <c:if test = "${u.perm_id ==  3}"> <span class="label label-warning">Reviewer</span> </c:if>
+
+                                                    </td>
+                                                    <td>
                                                     <c:if test = "${u.states ==  1}"> <span class="label label-success">Approved</span> </c:if> 
                                                     <c:if test = "${u.states ==  0}">  <span class="label label-warning">pinding</span></c:if> 
                                                     </td> 
 
                                                     <td> 
 
-                                                        <a href="
-                                                        <sql:update var="x" dataSource="${db}"> 
-                                                             UPDATE userpermetion  SET   states = 1 WHERE uname= ? ;
-                                                             <sql:param value="${u.uname}" />
-                                                        </sql:update>" 
-                                                        <button
-                                                                class="label label-success pull-left" type="submit" >    accepted  </button>
+                                                        <a href=" acceptuser.jsp?uname=${u.uname}&perm_id=${u.perm_id} " 
+                                                           <button
+                                                                class="label label-success pull-left" type="submit" name="accept"  >    accepted  </button>
                                                         </a>
 
 
-                                                    <a href="<sql:update var="x" dataSource="${db}"> 
-                                                             UPDATE userpermetion  SET   states = 1 WHERE uname= ? ;
-                                                             <sql:param value="${u.uname}" />
-                                                        </sql:update>"  >          <span  class="label label-danger pull-right">  Rejected   </span> </a>
+                                                        <a   href=" rejectuser.jsp?uname=${u.uname}&perm_id=${u.perm_id} " >      
+                                                        <span  class="label label-danger pull-right">  Rejected   </span> </a>
 
                                                 </td>
 

@@ -109,7 +109,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 <a href="register.jsp">Sign up</a>
                                             </div>
                                             <div class="col-xs-4 text-center">
-                                                <a href="login.jsp">Login</a>
+                                                <a href="login.jsp">login</a>
                                             </div>
                                             
                                         </div>
@@ -230,7 +230,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <div class="user-block">
 
                                     <img class="img-circle" src="data:image/jpg;base64,${post.getBase64Image()}" alt="User Image">
-                                    <span class="username"><a href="#">${post.getName()}</a></span>
+                                    <span class="username"><a href="otheruser.jsp?uname=${post.getUname()}">${post.getName()}</a></span>
                                     <span class="description">${post.getUname()} - ${post.getTime_stamp()}</span>
                                 </div>
                                 <!-- /.user-block -->
@@ -239,7 +239,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <i class="fa fa-circle-o"></i></button>
                                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                                     </button>
-                                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                       <button   type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> 
                                 </div>
                                 <!-- /.box-tools -->
                             </div>

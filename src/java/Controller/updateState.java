@@ -39,6 +39,7 @@ public class updateState extends HttpServlet {
            String i=  request.getParameter("id");
            String s=  request.getParameter("state");
            po.update_post(i , s);
+           response.sendRedirect("index.jsp");
         }
     }
 
